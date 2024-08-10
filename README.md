@@ -11,7 +11,8 @@ Antes de que el proyecto pueda ser funcional para el equipo de desarrollo es nec
 
 
 
-COPIA DE SEGURIDAD DE LA BASE DE DATOS: 
+COPIA DE SEGURIDAD DE LA BASE DE DATOS:
+
 Como por ahora se estara trabajando con una base de datos que se va a encontrar de manera local en cada ordenador, es necesario usar el archivo de copia de seguridad y adicionarlo manualmente a sql server management studio, en este caso el archivo necesario es 'Plant_protect.bak'
 1. Dirijase a la carpeta del proyecto en donde deberia estar el archivo antes mencionado
 2. Copie el archivo y peguelo en la siguiente ruta: "C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\Backup"
