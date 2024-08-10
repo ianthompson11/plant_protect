@@ -24,7 +24,7 @@ Como por ahora se estara trabajando con una base de datos que se va a encontrar 
 6. Seleccione los tres puntitos que se encuentran alado de devices
 7. Se le abrira una ventana similar a la de la imagen, alli debe seleccionar add o agregar
    ![image](https://github.com/user-attachments/assets/32e6cea3-e682-4a93-94ab-1bc3639692c5)
-8. Dirijase a la ruta en la que puso su base de datos, recuerde que es la ruta del punto 2 y seleccione el archivo .bak con el nombre Plant_protect.bak
+8. Dirijase a la ruta en la que puso su base de datos, recuerde que es la ruta del punto 2 y seleccione el archivo .bak
    ![image](https://github.com/user-attachments/assets/79fb5128-ca69-4330-b475-f70277ce72a9)
 9. Luego presione OK en las ventanas anteriores hasta que la base de datos aparezca en SQL Server Management Studio
 
