@@ -28,8 +28,7 @@ import os
 
 # Define la carpeta y el nombre del archivo *************MODIFICACIONES PARA QUE GUARDE DETECCIONES
  
-#pc = 1 #DESARROLLO O PRINCIPAL
-pc = 2 #MUESTRA
+pc = 3 #MUESTRA
 verificador = 0
 screen_size = "1200x600"
 #verde_oliva = '#6b8e23'
@@ -42,7 +41,7 @@ boton_height = 1
 width_principal = 636
 height_principal = 387
 chocolate = "#241E1F"
-
+print("Nueva Version")
 cam_running = False
 cap = None  # Añadido para manejar la captura globalmente
 
@@ -52,37 +51,44 @@ cap = None  # Añadido para manejar la captura globalmente
 numero_planta = 0
 port = 'COM4'
 
+local_path = os.getcwd()
+actividades_path = os.path.join(local_path, 'actividades')
+
 if(pc == 1):
 
-    actividades_path = 'C:\\Users\\ianda\\Desktop\\VERSION-FUNCIONAL\\PLANT_PROTECT\\actividades'
     screen_size = "1200x600"
     desired_width = 1540
     desired_height = 1000
     width_principal = 636
     height_principal = 387
+    server = 'MrT\\SQLEXPRESS'
+
+elif(pc == 3):
+
+    screen_size = "1200x600"
+    desired_width = 1540
+    desired_height = 1000
+    width_principal = 636
+    height_principal = 387
+    server = 'MRTHOMPSON\\SQLEXPRESS'
 
 
 else:
 
-    actividades_path = 'C:\\Users\\ianda\\Desktop\\TFODCourse-main\\actividades'
     screen_size = "1000x400"
     desired_width = 1540
     desired_height = 875
     width_principal = 636
     height_principal = 339
+    server = 'Ianth11\\SQLEXPRESS'
 
 detecciones_path = os.path.join(actividades_path, 'detecciones')
 web_images_path = os.path.join(actividades_path, 'web_images')
 fotos_path = os.path.join(actividades_path, 'Fotos')
 ventana_secundaria_1_path = os.path.join(actividades_path, 'ventana_secundaria_1')
 graficas_path = os.path.join(actividades_path, 'graficas')
-
 ventana_inicial_path = os.path.join(actividades_path, 'ventana_inicial')
 
-
-#folder_path = os.path.join(actividades_path, 'detecciones')
-
-#web_images_path = os.path.join(actividades_path, 'web_images')
 
 # Variable global para controlar el estado de la cámara
 OUTPUT_FOLDER = os.path.join(actividades_path, 'Fotos')
@@ -115,8 +121,6 @@ class VentanaPrincipal(tk.Tk):
 
         self.bind("<Escape>", self.end_fullscreen)
 
-        
-        
         self.ventana_actual = None
         self.mostrar_ventana_inicial()
 
@@ -226,12 +230,10 @@ class VentanaInicial(tk.Frame):
         font_style_titulo = ("Aptos (Body)", 25, "bold")
         font_style_boton = ("Aptos (Body)", 18, "bold")
 
-        image_path = os.path.join(ventana_inicial_path, 'image1.jpg')
-
-
+        image1_path = os.path.join(ventana_inicial_path, 'image1.jpg')
 
         # Carga las imágenes redimensionadas
-        img2 = self.load_image(image_path, desired_width, desired_height)
+        img2 = self.load_image(image1_path, desired_width, desired_height)
 
         # Crea widgets de etiqueta para mostrar las imágenes y guarda la referencia de la imagen
         self.label1 = tk.Label(self, image=img2, bd=0)
@@ -260,22 +262,15 @@ class VentanaInicial(tk.Frame):
         boton_ir_secundaria.image = button_image_tk  # Mantener la referencia a la imagen
 
 
-        #self.boton_adicional_inicial = tk.Button(self.frame_principal, text="DATOS DE PLANTAS", command=parent.mostrar_ventana_botones_plantas, bg=verde_claro, fg=verde_letras, font=font_style_boton, width=boton_width, height=boton_height, borderwidth=0)
-        #self.boton_adicional_inicial.grid(row=2, column=0, pady=10)
-
         boton_adicional_inicial = tk.Button(self.frame_principal,activebackground=verde_oliva , image=button_image_tk, text="DATOS DE PLANTAS", compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, command=parent.mostrar_ventana_botones_plantas, bg = verde_oliva)
         boton_adicional_inicial.grid(row=2, column=0, pady=10, sticky='n')
         boton_adicional_inicial.image = button_image_tk  # Mantener la referencia a la imagen
 
-        #self.boton_deteccion = tk.Button(self.frame_principal, text="DETECCION", command=parent.mostrar_ventana_botones_plantas, bg=verde_claro, fg=verde_letras, font=font_style_boton, width=boton_width, height=boton_height, borderwidth=0)
-        #self.boton_deteccion.grid(row=3, column=0, pady=10)
+
 
         boton_deteccion = tk.Button(self.frame_principal,activebackground=verde_oliva , image=button_image_tk, text="DETECCION", compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, command=parent.mostrar_ventana_detecciones, bg = verde_oliva)
         boton_deteccion.grid(row=3, column=0, pady=10, sticky='n')
         boton_deteccion.image = button_image_tk  # Mantener la referencia a la imagen
-
-        #self.boton_ver_sensores = tk.Button(self.frame_principal, text="VER SENSORES", command=parent.mostrar_ventana_secundaria_1, bg=verde_claro, fg=verde_letras, font=font_style_boton, width=boton_width, height=boton_height, borderwidth=0)
-        #self.boton_ver_sensores.grid(row=4, column=0, pady=10)
 
         boton_ver_sensores = tk.Button(self.frame_principal, activebackground=verde_oliva ,image=button_image_tk, text="VER SENSORES", compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, command=parent.mostrar_ventana_secundaria_1, bg = verde_oliva)
         boton_ver_sensores.grid(row=4, column=0, pady=10, sticky='n')
@@ -309,7 +304,7 @@ class Ventana_detecciones(tk.Frame):
         font_style_titulo = ("Aptos (Body)", 25, "bold")
         font_style_boton = ("Aptos (Body)", 18, "bold")
 
-        image_path = os.path.join(ventana_inicial_path, 'image4.jpg')
+        image4_path = os.path.join(ventana_inicial_path, 'image4.jpg')
 
         width, height, radius = 300, 50, 25 #actualmente es 25
 
@@ -318,7 +313,7 @@ class Ventana_detecciones(tk.Frame):
 
 
         # Carga las imágenes redimensionadas
-        img2 = self.load_image(image_path, desired_width, desired_height)
+        img2 = self.load_image(image4_path, desired_width, desired_height)
 
         # Crea widgets de etiqueta para mostrar las imágenes y guarda la referencia de la imagen
         self.label1 = tk.Label(self, image=img2, bd=0)
@@ -337,20 +332,10 @@ class Ventana_detecciones(tk.Frame):
         # Create a label to display the video feed
         self.video_label = tk.Label(self.video_frame,compound="center", bg =chocolate)
         self.video_label.grid(row=0, column=0)  # Colocar el frame en la ventana principal usando grid
-
-        #boton_deteccion = tk.Button(self.frame_principal, image=button_image_tk, text="Deteccion en tiempo real", compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, command=parent.mostrar_ventana_detecciones, bg = verde_oliva)
-
-        # Add buttons to start and stop the camera
-        #start_button = tk.Button(self.video_frame, text="Start Camera", command=self.start_cam, compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, bg = verde_oliva)
-        #start_button.grid(row=1, column=0)  # Colocar el frame en la ventana principal usando grid
-
         
         start_button = tk.Button(self.video_frame, activebackground=chocolate, image=button_image_tk, text="Start Camera", compound="center", fg=chocolate, font=font_style_boton, borderwidth=0, highlightthickness=0, command=self.start_cam, bg = chocolate)
         start_button.grid(row=1, column=0, pady=10, sticky='n')
         start_button.image = button_image_tk  # Mantener la referencia a la imagen
-
-        #stop_button = tk.Button(self.video_frame, text="Stop Camera", command=self.stop_cam)
-        #stop_button.grid(row=2, column=0)
 
         stop_button = tk.Button(self.video_frame,activebackground=chocolate, image=button_image_tk, text="Stop Camera", compound="center", fg=chocolate, font=font_style_boton, borderwidth=0, highlightthickness=0, command=self.stop_cam, bg = chocolate)
         stop_button.grid(row=2, column=0, pady=10, sticky='n')
@@ -446,10 +431,10 @@ class VentanaSecundaria(tk.Frame):
         font_style_titulo = ("Helvetica", 20, "bold")
         font_style_boton = ("Helvetica", 15, "bold")
 
-        image_path = os.path.join(ventana_inicial_path, 'image1.jpg')
+        image1_path = os.path.join(ventana_inicial_path, 'image1.jpg')
 
         # Carga las imágenes redimensionadas
-        img2 = self.load_image(image_path, desired_width, desired_height)
+        img2 = self.load_image(image1_path, desired_width, desired_height)
 
         # Crea widgets de etiqueta para mostrar las imágenes y guarda la referencia de la imagen
         self.label1 = tk.Label(self, image=img2, bd=0)
@@ -475,10 +460,6 @@ class VentanaSecundaria(tk.Frame):
         rounded_button_image = self.create_rounded_button_image(width, height, radius, verde_claro)
         button_image_tk = ImageTk.PhotoImage(rounded_button_image)
 
-        #boton_tomar = tk.Button(self.frame_principal,activebackground=verde_oliva, image=button_image_tk, text="Tomar Foto", compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, command=parent.mostrar_ventana_terciaria, bg = verde_oliva)
-        #boton_tomar.grid(row=1, column=0, pady=10, sticky='n')
-        #boton_tomar.image = button_image_tk  # Mantener la referencia a la imagen
-
         boton_seleccionar = tk.Button(
             self.frame_principal,
             image=button_image_tk,
@@ -502,17 +483,10 @@ class VentanaSecundaria(tk.Frame):
         boton_atras.image = button_image_tk  # Mantener la referencia a la imagen
 
     def seleccionar_imagen(self, parent):
-    
-        if (pc == 1):
-            u="/User/Desktop/VERSION-FUNCIONAL/PLANT_PROTECT/Pruebas"  # Directorio inicial (puedes cambiarlo)
-        elif (pc == 2):
-            u="/User/Desktop/TFODCourse-main/Pruebas"  # Directorio inicial (puedes cambiarlo)
-
 
         ruta_imagen = filedialog.askopenfilename(
         
-            initialdir=u,
-            #C:\Users\ianda\Desktop\VERSION-FUNCIONAL\PLANT_PROTECT\actividades\Fotos\foto
+            initialdir=local_path,
             title="Seleccionar imagen",
             filetypes=(("Archivos de imagen", "*.jpg *.jpeg *.png *.gif"), ("todos los archivos", "*.*"))
         )
@@ -521,19 +495,13 @@ class VentanaSecundaria(tk.Frame):
             # Cargar la imagen con Pillow
             imagen_seleccionada = Image.open(ruta_imagen)
             extension = os.path.splitext(ruta_imagen)[1]  # Obtener la extensión del archivo original
-            if (pc == 1) :
-                nueva_ruta =  r"C:\Users\ianda\Desktop\VERSION-FUNCIONAL\PLANT_PROTECT\actividades\Fotos\foto" + extension  # Ruta de destino con el nombre "foto"
-            elif (pc == 2):
-                nueva_ruta =  r"C:\Users\ianda\Desktop\TFODCourse-main\actividades\Fotos\foto" + extension  # Ruta de destino con el nombre "foto"
-
-            
+            nueva_ruta = os.path.join(fotos_path, "foto" + extension)          
             imagen_seleccionada.save(nueva_ruta)
 
             # Convertir a formato compatible con Tkinter
             imagen_tk = ImageTk.PhotoImage(imagen_seleccionada)
-
             parent.mostrar_ventana_terciaria_alternativa()
-            #parent.mostrar_ventana_terciaria()
+
 
     def create_rounded_button_image(self, width, height, radius, color):
         image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -562,12 +530,12 @@ class VentanaTerciaria(tk.Frame):
         font_style_titulo = ("Helvetica", 20, "bold")
         font_style_boton = ("Helvetica", 15, "bold")
 
-        image_path = os.path.join(ventana_inicial_path, 'image4.jpg')
+        image4_path = os.path.join(ventana_inicial_path, 'image4.jpg')
 
 
 
         # Carga las imágenes redimensionadas
-        img2 = self.load_image(image_path, desired_width, desired_height)
+        img2 = self.load_image(image4_path, desired_width, desired_height)
         
 
         # Crea widgets de etiqueta para mostrar las imágenes y guarda la referencia de la imagen
@@ -608,14 +576,8 @@ class VentanaTerciaria(tk.Frame):
         self.photo_label = tk.Label(self.frame_principal)
         self.photo_label.grid(row=3, column=0, pady=10, sticky='n')
 
-        
-        
-
-        
         self.take_photo()
 
-
-    
 
     def create_rounded_button_image(self, width, height, radius, color):
         image = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -666,11 +628,11 @@ class VentanaTerciariaAlternativa(tk.Frame):
         font_style_titulo = ("Helvetica", 20, "bold")
         font_style_boton = ("Helvetica", 15, "bold")
 
-        image_path = os.path.join(ventana_inicial_path, 'image4.jpg')
+        image4_path = os.path.join(ventana_inicial_path, 'image4.jpg')
 
 
         # Carga las imágenes redimensionadas
-        img2 = self.load_image(image_path, desired_width, desired_height)
+        img2 = self.load_image(image4_path, desired_width, desired_height)
         
 
         # Crea widgets de etiqueta para mostrar las imágenes y guarda la referencia de la imagen
@@ -708,8 +670,6 @@ class VentanaTerciariaAlternativa(tk.Frame):
         boton_regresar_secundaria.grid(row=2, column=0, pady=10, sticky='n')
         boton_regresar_secundaria.image = button_image_tk  # Mantener la referencia a la imagen 
 
-        #self.photo_label = tk.Label(self.frame_principal)
-        #self.photo_label.grid(row=3, column=0, pady=10, sticky='n')
 
         self.prepara_imagenes()
 
@@ -735,25 +695,17 @@ class VentanaTerciariaAlternativa(tk.Frame):
     def prepara_imagenes(self):
 
 
-        if (pc == 1):
-
-            current_folder = r"C:\Users\ianda\Desktop\VERSION-FUNCIONAL\PLANT_PROTECT\actividades\Fotos"
-            
-        elif (pc == 2):
-        
-            current_folder = r"C:\Users\ianda\Desktop\TFODCourse-main\actividades\Fotos"
-
         # Tamaño objetivo
         target_width = 640
         target_height = 480
 
         # Recorrer todos los archivos en la carpeta actual
-        for filename in os.listdir(current_folder):
+        for filename in os.listdir(fotos_path):
             # Verificar si es un archivo de imagen
             if filename.lower().endswith((".jpg", ".png", ".jpeg", ".webp")):
             #if filename.lower().endswith((".jpg", ".png", ".jpeg", ".avif", ".webp")):
                 # Abrir la imagen
-                img_path = os.path.join(current_folder, filename)
+                img_path = os.path.join(fotos_path, filename)
                 img = Image.open(img_path)
 
                 # Obtener las dimensiones de la imagen
@@ -789,7 +741,7 @@ class VentanaTerciariaAlternativa(tk.Frame):
                 # Guardar la imagen recortada en la misma carpeta con la extensión .jpg
                 base_filename = os.path.splitext(filename)[0]
                 new_filename = f"{base_filename}.jpg"
-                img.save(os.path.join(current_folder, new_filename), format="JPEG")
+                img.save(os.path.join(fotos_path, new_filename), format="JPEG")
 
         print("Proceso completado.")
 
@@ -849,9 +801,6 @@ class Ventana_Graficas(tk.Frame):
 
 
         image_path = os.path.join(ventana_secundaria_1_path, 'fondo_ventana_secundaria_1.jpg')
-       
-
-
 
         # Carga las imágenes redimensionadas
         img2 = self.load_image(image_path, desired_width, desired_height)
@@ -917,9 +866,6 @@ class Ventana_Graficas(tk.Frame):
 
         #FIN DE IMAGENES GRAFICAS****************************************************
 
-
-        
-
         width, height, radius = 250, 40, 25 #actualmente es 25
 
         rounded_button_image = self.create_rounded_button_image(width, height, radius, verde_claro)
@@ -935,11 +881,6 @@ class Ventana_Graficas(tk.Frame):
             
         else:
             self.parent.mostrar_ventana_cuidado_plantas()
-
-
-        
-
-
 
 
     def create_rounded_button_image(self, width, height, radius, color):
@@ -1023,7 +964,6 @@ class Ventana_cuidado_plantas(tk.Frame):
 
         else:
             image1_name = 'lechuga.jpg'
-            print("Oye, no se que hago aqui bro")
             i = 3
             image_path = os.path.join(ventana_inicial_path, 'lechuga_fondo_2.jpg')
         
@@ -1125,12 +1065,8 @@ class Ventana_cuidado_plantas(tk.Frame):
         self.frame_imagen_deteccion = tk.Frame(self.frame_principal, width=300, height=300, bg=verde_claro)
         self.frame_imagen_deteccion.grid(row=0, column=0, sticky='nw')  # Colocar el frame en la ventana principal usando grid
         self.frame_imagen_deteccion.grid_propagate(False)
-        
-        if (pc == 1):
-            image_path ='C:\\Users\\ianda\\Desktop\\VERSION-FUNCIONAL\\PLANT_PROTECT\\actividades\\detecciones\\detections.jpg'
-            
-        elif (pc == 2):
-            image_path ='C:\\Users\\ianda\\Desktop\\TFODCourse-main\\actividades\\detecciones\\detections.jpg'
+
+        image_path = os.path.join(detecciones_path, "detections.jpg")
 
         # Llamada inicial para cargar la imagen al inicio
         self.cargar_imagen(image_path)
@@ -1152,17 +1088,8 @@ class Ventana_cuidado_plantas(tk.Frame):
         boton_regresar_inicial = tk.Button(self, activebackground=chocolate,image = button_image_tk, text="Inicio", compound="center", fg=verde_claro, font=font_style_boton, borderwidth=0, highlightthickness=0, command=self.on_back_button, bg = chocolate)
         boton_regresar_inicial.grid(row=0, column=0, pady=50, padx = 30, sticky='se')
         boton_regresar_inicial.image = button_image_tk  # Mantener la referencia a la imagen
-        
-        if (pc == 1):
-            server = 'MrT\\SQLEXPRESS' 
-            ruta_guardado = r"C:\Users\ianda\Desktop\VERSION-FUNCIONAL\PLANT_PROTECT\actividades\graficas"
-            
 
-
-        else: 
-
-            server = 'Ianth11\\SQLEXPRESS'
-            ruta_guardado = r"C:\Users\ianda\Desktop\TFODCourse-main\actividades\graficas"
+        ruta_guardado = graficas_path
 
         database = 'Plant_protect' 
         tabla = 'SensorData'
@@ -1305,13 +1232,6 @@ class Ventana_cuidado_plantas(tk.Frame):
 
     def store_data_in_db(self, Humedad, Temperatura, HumedadSuelo, Luz):
         # Detalles de la conexión
-        if (pc == 1):
-            server = 'MrT\\SQLEXPRESS' 
-
-        else: 
-
-            server = 'Ianth11\\SQLEXPRESS'
-        
     
         database = 'Plant_protect'  
 
@@ -1417,13 +1337,6 @@ class Ventana_cuidado_plantas(tk.Frame):
     def mostrar_cientifico(self, etiqueta, cultivo_id):
         # Detalles de la conexión
 
-        if (pc == 1):
-            server = 'MrT\\SQLEXPRESS' 
-
-        else: 
-
-            server = 'Ianth11\\SQLEXPRESS' 
-
         database = 'Plant_protect'  
 
         # Cadena de conexión
@@ -1480,11 +1393,6 @@ class Ventana_cuidado_plantas(tk.Frame):
 
 
     def mostrar_cultivo(self, etiqueta, cultivo_id):
-        # Detalles de la conexión
-        if pc == 1:
-            server = 'MrT\\SQLEXPRESS'
-        else:
-            server = 'Ianth11\\SQLEXPRESS'
 
         database = 'Plant_protect'
 
@@ -1535,14 +1443,6 @@ class Ventana_cuidado_plantas(tk.Frame):
 
         except Exception as e:
             print("Error de conexión:", e)
-
-
-
-
-
-
-
-
 
 class ventana_secundaria_1(tk.Frame):
     def __init__(self, parent):
@@ -1625,14 +1525,7 @@ class ventana_secundaria_1(tk.Frame):
         boton_regresar_inicial.grid(row=2, column=0, pady=10, sticky='n')
         boton_regresar_inicial.image = button_image_tk  # Mantener la referencia a la imagen
 
-        if (pc == 1):
-            server = 'MrT\\SQLEXPRESS' 
-            ruta_guardado = r"C:\Users\ianda\Desktop\VERSION-FUNCIONAL\PLANT_PROTECT\actividades\graficas"
-
-        else: 
-
-            server = 'Ianth11\\SQLEXPRESS'
-            ruta_guardado = r"C:\Users\ianda\Desktop\TFODCourse-main\actividades\graficas"
+        ruta_guardado = graficas_path
 
         database = 'Plant_protect' 
         tabla = 'SensorData'
@@ -1739,13 +1632,6 @@ class ventana_secundaria_1(tk.Frame):
 
     def store_data_in_db(self, Humedad, Temperatura, HumedadSuelo, Luz):
         # Detalles de la conexión
-        if (pc == 1):
-            server = 'MrT\\SQLEXPRESS' 
-
-        else: 
-
-            server = 'Ianth11\\SQLEXPRESS'
-        
     
         database = 'Plant_protect'  
 
@@ -2020,12 +1906,6 @@ class ventana_secundaria_2(tk.Frame):
     def mostrar_cientifico(self, etiqueta, cultivo_id):
 
 
-        # Detalles de la conexión
-        if (pc == 1):
-            server = 'MrT\\SQLEXPRESS' 
-        else: 
-            server = 'Ianth11\\SQLEXPRESS' 
-
         database = 'Plant_protect'  
 
         # Cadena de conexión
@@ -2080,11 +1960,6 @@ class ventana_secundaria_2(tk.Frame):
 
 
     def mostrar_cultivo(self, etiqueta, cultivo_id):
-        # Detalles de la conexión
-        if pc == 1:
-            server = 'MrT\\SQLEXPRESS'
-        else:
-            server = 'Ianth11\\SQLEXPRESS'
 
         database = 'Plant_protect'
 
@@ -2146,8 +2021,6 @@ class ventana_botones_plantas(tk.Frame):
 
         image_path = os.path.join(ventana_inicial_path, 'image2.jpg')
 
-
-
         # Carga las imágenes redimensionadas
         img2 = self.load_image(image_path, desired_width, desired_height)
 
@@ -2206,9 +2079,6 @@ class ventana_botones_plantas(tk.Frame):
         boton_atras.grid(row=7, column=0, pady=5, sticky='n')
         boton_atras.image = button_image_tk
 
-        #boton_regresar_inicial = tk.Button(self.frame_arduino, image=button_image_tk, text="Atras", compound="center", fg=chocolate, font=font_style_boton, borderwidth=0, highlightthickness=0, command=self.on_back_button, bg = chocolate)
-        #boton_regresar_inicial.grid(row=1, column=0, pady=10, sticky='n')
-        #boton_regresar_inicial.image = button_image_tk  # Mantener la referencia a la imagen
 
 
 
@@ -2315,9 +2185,6 @@ class Ventana_datos_plantas(tk.Frame):
         self.titulo = tk.Label(self.frame_principal, text=nombre, bg= chocolate, fg = verde_claro, font=font_titulo)
         self.titulo.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 
-
-
-
         #DATOS CIENTIFICOS*****************************************
 
         
@@ -2362,9 +2229,6 @@ class Ventana_datos_plantas(tk.Frame):
 
 
         #FIN DATOS PLANTAS*****************************************
-
-
-
 
         width, height, radius = 300, 50, 25 #actualmente es 25
 
@@ -2424,12 +2288,6 @@ class Ventana_datos_plantas(tk.Frame):
     def mostrar_cientifico(self, etiqueta, cultivo_id):
         # Detalles de la conexión
 
-        if (pc == 1):
-            server = 'MrT\\SQLEXPRESS' 
-
-        else: 
-
-            server = 'Ianth11\\SQLEXPRESS' 
 
         database = 'Plant_protect'  
 
@@ -2487,11 +2345,8 @@ class Ventana_datos_plantas(tk.Frame):
 
 
     def mostrar_cultivo(self, etiqueta, cultivo_id):
-        # Detalles de la conexión
-        if pc == 1:
-            server = 'MrT\\SQLEXPRESS'
-        else:
-            server = 'Ianth11\\SQLEXPRESS'
+
+
 
         database = 'Plant_protect'
 
