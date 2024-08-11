@@ -17,8 +17,37 @@ Antes de que el proyecto pueda ser funcional para el equipo de desarrollo es nec
    ``` python -m venv plant_protect ```
    
 3. Active el entorno virtual:
-``` source tfod/bin/activate # Linux ```
-``` .\tfod\Scripts\activate # Windows ```
+   ```
+   source plant_protect/bin/activate # Linux
+   .\plant_protect\Scripts\activate # Windows
+    ```
+
+4. Instale lo necesario y agregue el entorno virtual al kernel de Python
+   ```
+   python -m pip install --upgrade pip
+   pip install ipykernel
+   python -m ipykernel install --user --name=plant_protect
+   ```
+5. Instale jupyter
+   ```
+   pip install jupyter
+   ```
+6. Abra Jupyter notebook escribiendo:
+   ```
+   jupyter notebook
+   ```
+
+## CONFIGURACIONES EN JUPYTER
+1. Abra el cuaderno Deteccion.ipynb
+2. Asegurese de seleccionar el Kernel correcto en la seccion que se muestra en la imagen, alli puede ver que menciona plant_protect2, si este no es el kernel que usted utilizo en su configuracion, entonces debe abrir la ventana y seleccionar el indicado. El indicado es aquel que usted creo en la seccion "Primeros Pasos" bajo el comando ``` python -m venv plant_protect ```
+   
+   ![image](https://github.com/user-attachments/assets/06ad8ec0-62e3-4c36-ad3d-ce0214c7b5ee)
+
+   ![image](https://github.com/user-attachments/assets/46b82023-347e-4e56-bd84-9814579c2e34)
+
+3. Siga los pasos indicados en el archivo, usualmente para ejecutar celdas en jupyter es necesario presionar ```shift + Enter```
+
+
 
 
 ## COPIA DE SEGURIDAD DE LA BASE DE DATOS:
