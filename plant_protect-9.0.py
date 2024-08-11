@@ -55,33 +55,36 @@ port = 'COM4'
 local_path = os.getcwd()
 actividades_path = os.path.join(local_path, 'actividades')
 
+def get_screen_params():
+    root = tk.Tk()
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # Ajuste automático de dimensiones en función del tamaño de la pantalla
+    screen_size = f"{screen_width}x{screen_height}"
+    desired_width = int(screen_width )  # 75% del ancho de la pantalla
+    desired_height = int(screen_height)  # 75% de la altura de la pantalla
+    width_principal = int(desired_width * 0.4)  # 40% del ancho deseado
+    height_principal = int(desired_height * 0.4)  # 40% de la altura deseada
+
+    # Definir el servidor en función de la pantalla o cualquier otra lógica
+    root.destroy()
+    
+    return screen_size, desired_width, desired_height, width_principal, height_principal
+
+
+# Llamar a la función para obtener los parámetros
+screen_size, desired_width, desired_height, width_principal, height_principal = get_screen_params()
+
+print(screen_size, desired_width, desired_height, width_principal, height_principal)
+
 if(pc == 1):
-
-    screen_size = "1200x600"
-    desired_width = 1540
-    desired_height = 1000
-    width_principal = 636
-    height_principal = 387
     server = 'MrT\\SQLEXPRESS'
-
-elif(pc == 3):
-
-    screen_size = "1200x600"
-    desired_width = 1540
-    desired_height = 1000
-    width_principal = 636
-    height_principal = 387
+elif(pc == 2):
+    server = 'Ianth11\\SQLEXPRESS'
+else:
     server = 'MRTHOMPSON\\SQLEXPRESS'
 
-
-else:
-
-    screen_size = "1000x400"
-    desired_width = 1540
-    desired_height = 875
-    width_principal = 636
-    height_principal = 339
-    server = 'Ianth11\\SQLEXPRESS'
 
 detecciones_path = os.path.join(actividades_path, 'detecciones')
 web_images_path = os.path.join(actividades_path, 'web_images')
@@ -111,6 +114,8 @@ baudrate = 9600
 # Variables globales
 current_photo_path = None
 max_score_class_name = '' #variable que da el nombre de la deteccion en perform_detections
+
+
 
 class VentanaPrincipal(tk.Tk):
     def __init__(self):
@@ -2518,6 +2523,7 @@ def perform_detection():
         return(max_score_class_name)
     else:
         print("La carpeta no contiene exactamente una imagen.")
+
 
 
 
