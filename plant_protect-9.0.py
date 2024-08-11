@@ -29,6 +29,7 @@ import os
 # Define la carpeta y el nombre del archivo *************MODIFICACIONES PARA QUE GUARDE DETECCIONES
  
 pc = 3 #MUESTRA
+print("esto es un cambio")
 verificador = 0
 screen_size = "1200x600"
 #verde_oliva = '#6b8e23'
