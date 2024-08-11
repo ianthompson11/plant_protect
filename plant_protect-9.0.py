@@ -25,10 +25,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import pyodbc
 import os
+import socket
 
 # Define la carpeta y el nombre del archivo *************MODIFICACIONES PARA QUE GUARDE DETECCIONES
  
-pc = 3 #MUESTRA
 print("esto es un cambio")
 verificador = 0
 screen_size = "1200x600"
@@ -51,6 +51,7 @@ cap = None  # Añadido para manejar la captura globalmente
 
 numero_planta = 0
 port = 'COM4'
+hostname = socket.gethostname()
 
 local_path = os.getcwd()
 actividades_path = os.path.join(local_path, 'actividades')
@@ -78,12 +79,16 @@ screen_size, desired_width, desired_height, width_principal, height_principal = 
 
 print(screen_size, desired_width, desired_height, width_principal, height_principal)
 
-if(pc == 1):
+
+
+server = server = hostname + '\\SQLEXPRESS'
+'''if(pc == 1):
     server = 'MrT\\SQLEXPRESS'
 elif(pc == 2):
     server = 'Ianth11\\SQLEXPRESS'
 else:
     server = 'MRTHOMPSON\\SQLEXPRESS'
+'''
 
 
 detecciones_path = os.path.join(actividades_path, 'detecciones')
@@ -221,10 +226,6 @@ class VentanaPrincipal(tk.Tk):
         self.ventana_actual = Ventana_Graficas(self)
         self.ventana_actual.pack(fill=tk.BOTH, expand=True)
 
-        
-
-
-
 class VentanaInicial(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -271,8 +272,6 @@ class VentanaInicial(tk.Frame):
         boton_adicional_inicial = tk.Button(self.frame_principal,activebackground=verde_oliva , image=button_image_tk, text="DATOS DE PLANTAS", compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, command=parent.mostrar_ventana_botones_plantas, bg = verde_oliva)
         boton_adicional_inicial.grid(row=2, column=0, pady=10, sticky='n')
         boton_adicional_inicial.image = button_image_tk  # Mantener la referencia a la imagen
-
-
 
         boton_deteccion = tk.Button(self.frame_principal,activebackground=verde_oliva , image=button_image_tk, text="DETECCION", compound="center", fg=verde_letras, font=font_style_boton, borderwidth=0, highlightthickness=0, command=parent.mostrar_ventana_detecciones, bg = verde_oliva)
         boton_deteccion.grid(row=3, column=0, pady=10, sticky='n')
@@ -2523,10 +2522,6 @@ def perform_detection():
         return(max_score_class_name)
     else:
         print("La carpeta no contiene exactamente una imagen.")
-
-
-
-
 
 
 if __name__ == "__main__":
