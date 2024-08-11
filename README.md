@@ -1,6 +1,8 @@
 # plant_protect
 El proyecto muestra el desarrollo y evolucion de un sistema de automatizacion de cultivos, desde la deteccion individual de estos hasta sus cuidados especificos
 
+Antes de iniciar le recomendamos utilizar la version de Python 3.8.9 ya que es una version en la que no hay conflictos con algunas de las librerias, usted puede intentar usar otras versiones de Python mas modernas sin embargo no garantizamos su funcionamiento en estas. 
+
 ## 1. PRIMEROS PASOS
 
 1. Clona el repositorio de este proyecto en la carpeta de tu preferencia: https://github.com/ianthompson11/plant_protect.git
