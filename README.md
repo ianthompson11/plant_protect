@@ -9,6 +9,11 @@ Antes de que el proyecto pueda ser funcional para el equipo de desarrollo es nec
 3. Exportar la base de datos para ser utilizada en otros equipos, es preferible colocar instrucciones para que el resto del equipo pueda incluir la base de datos en su equipo y los archivos de la bade de datos deben subirse a este proyecto tambien.
 4. Realizar adecuaciones para el funcionamiento apropiado del codigo en todo tipo de tamaños de pantalla, actualmente los tamaños de ciertas imagenes son gestionados especificamente para dos tamaños distintos de pantalla, es necesario que se adecuen para que el mismo codigo independientemente del tamaño de pantalla muestre adecuadamente las imagenes.
 
+## PRIMEROS PASOS
+
+1. Clona el repositorio de este proyecto en la carpeta de tu preferencia: https://github.com/ianthompson11/plant_protect.git
+2. Crea un nuevo entorno virtual
+   ''' python -m venv plant_protect '''
 
 
 ## COPIA DE SEGURIDAD DE LA BASE DE DATOS:
