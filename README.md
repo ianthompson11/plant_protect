@@ -15,6 +15,10 @@ Antes de que el proyecto pueda ser funcional para el equipo de desarrollo es nec
 2. Crea un nuevo entorno virtual
 
    ``` python -m venv plant_protect ```
+   
+3. Active el entorno virtual:
+``` source tfod/bin/activate # Linux ```
+``` .\tfod\Scripts\activate # Windows ```
 
 
 ## COPIA DE SEGURIDAD DE LA BASE DE DATOS:
