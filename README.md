@@ -13,7 +13,8 @@ Antes de que el proyecto pueda ser funcional para el equipo de desarrollo es nec
 
 1. Clona el repositorio de este proyecto en la carpeta de tu preferencia: https://github.com/ianthompson11/plant_protect.git
 2. Crea un nuevo entorno virtual
-   ''' python -m venv plant_protect '''
+
+   ``` python -m venv plant_protect ```
 
 
 ## COPIA DE SEGURIDAD DE LA BASE DE DATOS:
